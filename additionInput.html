@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <h1>Matrix Additionn</h1>
+    <h1>Matrix Addition</h1>
     <a href="HTMLPage1.html">Go back to home page</a>
     <p>Please enter the size of the matrices to add: </p>
     <form>
@@ -17,6 +17,7 @@
         Matrix 2 Rows: <br> <input type="number" id="row2" name="row2">
         <br>
         Matrix 2 Columns: <br> <input type="number" id="col2" name="col2">
+        <br>
         <br>
         <input type="button" value="Create Matrices" onclick="createMatrixInputs()">
         <input type="button" value="Need Help" onclick="explainCalculator()">
@@ -49,6 +50,7 @@
             let checkDiv = document.getElementById("solutionCheck");
             checkDiv.innerHTML = "";
 
+            matricesDiv.appendChild(document.createElement("br"));
             let text = document.createTextNode('To use this calculator, please input the size of two different matrices. Note that the size of the two matrices should be equal. Next, click the create matrices button. This will allow you to input values for each matrix entry. You then have the option to either show the solution, guess the solution yourself, or get a walkthrough of the solution. Click the show history button to see the last 5 calculations done.')
             matricesDiv.appendChild(text);
 
@@ -56,8 +58,13 @@
 
         // Function to create matrix input boxes
         function createMatrixInputs() {
+            let resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = "";
+            let checkDiv = document.getElementById("solutionCheck");
+            checkDiv.innerHTML = "";
             let matricesDiv = document.getElementById("matrices");
             matricesDiv.innerHTML = "";
+            matricesDiv.appendChild(document.createElement("br"));
             let text = document.createTextNode('Input Matrices Here: ');
             matricesDiv.appendChild(text);
             matricesDiv.appendChild(document.createElement("br"));
@@ -95,6 +102,7 @@
             }
 
             matricesDiv.appendChild(document.createElement("br"));
+            matricesDiv.appendChild(document.createElement("br"));
 
             // Add input boxes for second matrix
             for (i = 0; i < row2; i++) {
@@ -109,6 +117,8 @@
                 }
                 matricesDiv.appendChild(document.createElement("br"));
             }
+
+            matricesDiv.appendChild(document.createElement("br"));
 
             // Add a button to multiply the two matrices
             var button = document.createElement("input");
@@ -150,9 +160,10 @@
             let rows2 = matrix2.length;
             let cols2 = matrix2[0].length;
 
-
+            
             let resultDiv = document.getElementById("result");
             resultDiv.innerHTML = "";
+            resultDiv.appendChild(document.createElement("br"));
             let text = document.createTextNode('Result: ');
             resultDiv.appendChild(text);
             resultDiv.appendChild(document.createElement("br"));
@@ -181,6 +192,8 @@
 
             // Add the matrix values to a table and add to document
             let table = document.createElement("table");
+            table.style.borderCollapse = "collapse";
+            
 
 
             for (i = 0; i < rows1; i++) {
@@ -188,6 +201,7 @@
                 for (j = 0; j < cols2; j++) {
                     let cell = document.createElement("td");
                     cell.innerText = result[i][j];
+                    cell.style.border = "0.5px solid black";
                     row.appendChild(cell);
                 }
                 table.appendChild(row);
@@ -214,6 +228,7 @@
             // Give variable to the div and display text
             let resultDiv = document.getElementById("result");
             resultDiv.innerHTML = "";
+            resultDiv.appendChild(document.createElement("br"));
             let text = document.createTextNode('Input guess here (Please round to 3 decimal places): ');
             resultDiv.appendChild(text);
             resultDiv.appendChild(document.createElement("br"));
@@ -277,6 +292,9 @@
             let checkDiv = document.getElementById("solutionCheck");
             checkDiv.innerHTML = "";
 
+
+            checkDiv.appendChild(document.createElement("br"));
+
             // Get size of solution matrix
             let rows1 = correctMatrix.length;
             let cols1 = correctMatrix[0].length;
@@ -321,6 +339,8 @@
             // Give variable to the div
             let resultDiv = document.getElementById("result");
             resultDiv.innerHTML = "";
+
+            resultDiv.appendChild(document.createElement("br"));
 
             let i, j;
 
@@ -376,12 +396,18 @@
 
                     // Add the matrix values to a table and add to document
                     let table = document.createElement("table");
+                    table.style.borderCollapse = "collapse";
                     let m, n;
                     for (m = 0; m < row1; m++) {
                         let row = document.createElement("tr");
                         for (n = 0; n < col2; n++) {
                             let cell = document.createElement("td");
                             cell.innerText = result[m][n];
+                            cell.style.border = "0.5px solid black";
+
+                            if ((m == i) && (n == j))
+                                cell.style.backgroundColor = "lightgray";
+
                             row.appendChild(cell);
                         }
                         table.appendChild(row);
@@ -397,11 +423,13 @@
 
             // Add the matrix values to a table and add to document
             let table = document.createElement("table");
+            table.style.borderCollapse = "collapse";
             for (i = 0; i < row1; i++) {
                 let row = document.createElement("tr");
                 for (j = 0; j < col2; j++) {
                     let cell = document.createElement("td");
                     cell.innerText = result[i][j];
+                    cell.style.border = "0.5px solid black";
                     row.appendChild(cell);
                 }
                 table.appendChild(row);
@@ -421,12 +449,14 @@
         function showHistory() {
             // Clear all divs
             let matricesDiv = document.getElementById("matrices");
-            matricesDiv.innerhtml = "";
+            matricesDiv.innerHTML = "";
             let resultDiv = document.getElementById("result");
             resultDiv.innerHTML = "";
             matricesDiv.innerHTML = "";
             let checkDiv = document.getElementById("solutionCheck");
             checkDiv.innerHTML = "";
+
+            matricesDiv.appendChild(document.createElement("br"));
 
             if (history[4] == 0) {
                 let text = document.createTextNode("No calculations done yet!");
@@ -466,12 +496,14 @@
 
                     // Add the matrix values to a table and add to document
                     let table1 = document.createElement("table");
+                    table1.style.borderCollapse = "collapse";
                     let j, k;
                     for (j = 0; j < row1; j++) {
                         let row = document.createElement("tr");
                         for (k = 0; k < col1; k++) {
                             let cell = document.createElement("td");
                             cell.innerText = inputMat1[j][k];
+                            cell.style.border = "0.5px solid black";
                             row.appendChild(cell);
                         }
                         table1.appendChild(row);
@@ -489,11 +521,13 @@
 
                     // Add the matrix values to a table and add to document
                     let table2 = document.createElement("table");
+                    table2.style.borderCollapse = "collapse";
                     for (j = 0; j < row2; j++) {
                         let row = document.createElement("tr");
                         for (k = 0; k < col2; k++) {
                             let cell = document.createElement("td");
                             cell.innerText = inputMat2[j][k];
+                            cell.style.border = "0.5px solid black";
                             row.appendChild(cell);
                         }
                         table2.appendChild(row);
@@ -510,11 +544,13 @@
 
                     // Add the matrix values to a table and add to document
                     let table3 = document.createElement("table");
+                    table3.style.borderCollapse = "collapse";
                     for (j = 0; j < row1; j++) {
                         let row = document.createElement("tr");
                         for (k = 0; k < col2; k++) {
                             let cell = document.createElement("td");
                             cell.innerText = result[j][k];
+                            cell.style.border = "0.5px solid black";
                             row.appendChild(cell);
                         }
                         table3.appendChild(row);
